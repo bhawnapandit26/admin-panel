@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Chart from "./Chart";
 import apiCall from "../Services/apiCall";
 import Filter from "./Filter";
+import transformChartData from "../Services/transformChartData";
 
 const Dashboard = () => {
 
@@ -24,6 +25,8 @@ const Dashboard = () => {
         
     }, [])
 
+    const chartData = transformChartData(data);
+
     return(
         <div className="dashboard-wrapper my-3 w-full min-h-dvh h-full shadow-sm shadow-gray-200 py-4 px-4 border border-gray-200 rounded-4xl flex flex-col gap-3">
             <div className="filter-section w-full bg-gray-100 rounded-2xl p-3">
@@ -39,9 +42,9 @@ const Dashboard = () => {
                     <button className="bg-gray-900 hover:bg-gray-800 text-white py-3 rounded-xl cursor-pointer">Lead (Partner wise)</button>
                     <button className="bg-gray-900 hover:bg-gray-800 text-white py-3 rounded-xl cursor-pointer">Lead (Country wise)</button>
                 </div>
-                <div className="accordian-right-panel w-5/6 flex flex-col bg-gray-100 rounded-2xl p-3 min-h-dvh">
-                    <div className="chart-container">
-                    Chart will be displayed here
+                <div className="accordian-right-panel w-5/6 flex flex-col bg-gray-100 rounded-2xl p-3 ">
+                    <div className="chart-container w-full h-[500px]">
+                   {selectedMonths.length > 0 && selectedPartner.length > 0 && (<Chart data={chartData} selectedMonths={selectedMonths}/>)}
                     </div>
                 </div>
             </div>
